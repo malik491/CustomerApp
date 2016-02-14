@@ -13,8 +13,8 @@
 	<h2> Online Restaurant </h2>
 	<h5> place and track your order </h5> 
 	<ul>
-		<li><a href="${pageContext.request.contextPath}/pos"> Place Online Order </a></li>
-		<li><a href="${pageContext.request.contextPath}/track"> Track Order </a></li>
+		<li><a href="pos"> Place Online Order </a></li>
+		<li><a href="track"> Track Order </a></li>
 	</ul>
 	
 	</div>
