@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.depaul.se491.capp.actions;
 
 import java.io.IOException;
@@ -28,14 +25,14 @@ public class PointOfSale extends BaseAction {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String jspMsg = null;
 		MenuItemBean[] menuItems = null;
-		MenuServiceClient serviceClient = new MenuServiceClient(getCustomerAppCredentials(), MENUITEM_SERVICE_URL);
-		menuItems = serviceClient.getAll();
+		MenuServiceClient serviceClient = new MenuServiceClient(getCustomerAppCredentials(), MENU_WEB_SERVICE_URL);
+		menuItems = serviceClient.getAllVisible();
 		jspMsg = (menuItems == null)? serviceClient.getResponseMessage() : null;	
 		
 		if (jspMsg != null)
 			request.setAttribute(ParamLabels.JspMsg.MSG, jspMsg);
 		if (menuItems != null) {
-			request.setAttribute(ParamLabels.MenuItem.MENU_ITEM_BEAN_LIST, menuItems);
+			request.setAttribute(ParamLabels.MenuItem.VISIBLE_MENU_ITEM_BEAN_LIST, menuItems);
 			request.setAttribute("jsonMenuItemList", new Gson().toJson(menuItems));
 		}
 		

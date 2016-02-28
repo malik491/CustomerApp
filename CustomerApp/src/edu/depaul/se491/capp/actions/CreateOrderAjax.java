@@ -41,7 +41,7 @@ public class CreateOrderAjax extends BaseAction {
 			} else if (isValidOrderBean(order) == false){
 				jsonResponse = getInvalidResponse("Invalid order data");
 			} else {
-				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_SERVICE_URL);
+				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_WEB_SERVICE_URL);
 				OrderBean createdOrder = serviceClient.post(order);
 				if (createdOrder == null) {
 					jsonResponse = getInvalidResponse(serviceClient.getResponseMessage());

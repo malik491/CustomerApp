@@ -34,7 +34,7 @@ public class TrackOrderAjax extends BaseAction {
 			if (!isValid) {
 				jsonResponse = getInvalidResponse("invalid order confirmation");
 			} else {
-				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_SERVICE_URL);
+				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_WEB_SERVICE_URL);
 				OrderBean order = serviceClient.get(orderConfirmation);
 				if (order == null) {
 					jsonResponse = getInvalidResponse(serviceClient.getResponseMessage());

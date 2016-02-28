@@ -13,6 +13,7 @@ import edu.depaul.se491.beans.OrderBean;
 import edu.depaul.se491.beans.OrderItemBean;
 import edu.depaul.se491.beans.PaymentBean;
 import edu.depaul.se491.enums.OrderType;
+import edu.depaul.se491.utils.ParamLengths;
 import edu.depaul.se491.validators.AddressValidator;
 import edu.depaul.se491.validators.CreditCardValidator;
 import edu.depaul.se491.validators.MenuItemValidator;
@@ -21,15 +22,72 @@ import edu.depaul.se491.validators.OrderValidator;
 import edu.depaul.se491.validators.PaymentValidator;
 
 public class BaseAction extends HttpServlet {
-	private static final long serialVersionUID = 1L; // ignore this
-	private static final CredentialsBean customerAppCredentials = new CredentialsBean("customerapp", "password");
+	private static final long serialVersionUID = 1L;
+	private static CredentialsBean customerAppCredentials;
+
+	protected static String ACCOUT_WEB_SERVICE_URL;
+	protected static String ORDER_WEB_SERVICE_URL;
+	protected static String MENU_WEB_SERVICE_URL;
 	
-	protected static final String CORE_APP_URL = "http://localhost/CoreApp";
-	protected static final String ACCOUNT_SERVICE_URL = CORE_APP_URL + "/account";
-	protected static final String MENUITEM_SERVICE_URL = CORE_APP_URL + "/menuItem";
-	protected static final String ORDER_SERVICE_URL = CORE_APP_URL + "/order";
 	protected static final String LOGIN_JSP_URL = "/login.jsp";
 	
+	@Override
+	public void init() throws ServletException {		
+		String hostname = getServletContext().getInitParameter("web-service-hostname");
+		String port = getServletContext().getInitParameter("web-service-port");
+		String appName = getServletContext().getInitParameter("web-service-appname");
+		String username = getServletContext().getInitParameter("customerapp-username");
+		String password = getServletContext().getInitParameter("customerapp-password");
+
+		if (hostname == null)
+			System.err.println("Missing web-service-hostname init parameter. 'localhost' will be used.");
+
+		if (port == null)
+			System.err.println("Missing web-service-port init parameter. Port '80' will be used.");
+		
+		if (appName == null)
+			System.err.println("Missing web-service-appname init parameter (see web.xml). 'CoreApp' will be used.");
+
+		hostname = hostname != null? hostname.trim() : "localhost";
+		appName = appName != null? appName.trim() : "CoreApp";
+		port = getPort(port);
+		
+		if (username == null || password == null) {
+			System.err.println("Missing customerapp-username or customerapp-password init parameters (see web.xml)");
+		} else {
+			username = username.trim();
+			int usernameLen = username.length();
+			if (usernameLen < ParamLengths.Credentials.MIN_USERNAME || usernameLen > ParamLengths.Credentials.MAX_USERNAME)
+				System.err.println(String.format("Invalid username length (length must be between %d-%d)", 
+								ParamLengths.Credentials.MIN_USERNAME, ParamLengths.Credentials.MAX_USERNAME));
+			
+			password = password.trim();
+			int passwordLen = password.length();
+			if (passwordLen < ParamLengths.Credentials.MIN_PASSWORD || passwordLen > ParamLengths.Credentials.MAX_PASSWORD)
+				System.err.println(String.format("Invalid password length (length must be between %d-%d)", 
+								ParamLengths.Credentials.MIN_PASSWORD, ParamLengths.Credentials.MAX_PASSWORD));	
+		}
+
+		customerAppCredentials = new CredentialsBean(username, password);
+		ACCOUT_WEB_SERVICE_URL = String.format("http://%s:%s/%s/account", hostname, port, appName);
+		ORDER_WEB_SERVICE_URL = String.format("http://%s:%s/%s/order", hostname, port, appName);
+		MENU_WEB_SERVICE_URL = String.format("http://%s:%s/%s/menuItem", hostname, port, appName);
+
+	}
+	
+	private String getPort(String port) {
+		String result = "80";
+		if (port!= null) {
+			try {
+				port = port.trim();
+				Integer.parseInt(port);
+				result = port;
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid port number (not a number). port '80' will be used.");
+			}
+		}
+		return result;
+	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

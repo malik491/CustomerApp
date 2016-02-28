@@ -34,7 +34,7 @@ public class TrackOrder extends BaseAction {
 			if (!isValid) {
 				jspMsg = "invalid order confirmation";
 			} else {
-				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_SERVICE_URL);
+				OrderServiceClient serviceClient = new OrderServiceClient(getCustomerAppCredentials(), ORDER_WEB_SERVICE_URL);
 				order = serviceClient.get(orderConfirmation);
 				jspMsg = (order == null)? serviceClient.getResponseMessage() : null;
 			}

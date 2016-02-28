@@ -29,7 +29,7 @@
 	String ajaxURL = String.format("\"%s%s\"", request.getContextPath(),"/ajax/create");
 	String msg = (String) request.getAttribute(ParamLabels.JspMsg.MSG);
 	String jsonMenuItemList = (String) request.getAttribute("jsonMenuItemList");
-	MenuItemBean[] menuItems = (MenuItemBean[]) request.getAttribute(ParamLabels.MenuItem.MENU_ITEM_BEAN_LIST);
+	MenuItemBean[] menuItems = (MenuItemBean[]) request.getAttribute(ParamLabels.MenuItem.VISIBLE_MENU_ITEM_BEAN_LIST);
 	
 	if (msg != null) {
 %>		<h3>  <%=msg%> </h3>
