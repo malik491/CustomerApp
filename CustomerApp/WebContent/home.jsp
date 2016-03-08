@@ -1,22 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Customer App</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/component.css" />
 	</head>
 <body>
-	<div class="component">
+<jsp:include page="/nav.jsp"></jsp:include>
+
+<main class="main">
 	
-	<h2> Online Restaurant </h2>
-	<h5> place and track your order </h5> 
-	<ul>
-		<li><a href="pos"> Place Online Order </a></li>
-		<li><a href="track"> Track Order </a></li>
-	</ul>
-	
+	<div class="action"> 
+		<img alt="restaurant icon" src="${pageContext.request.contextPath}/icons/ic_restaurant_black_48px.svg">
+		<a class="btn" href="<%=response.encodeURL(getServletContext().getContextPath() + "/pos")%>"> Place Online Order </a>
 	</div>
+	
+	<div class="action"> 
+		<img alt="track icon" src="${pageContext.request.contextPath}/icons/ic_track_black_48px.svg">
+		<a class="btn" href="<%=response.encodeURL(getServletContext().getContextPath() + "/track")%>"> Track Order </a>
+	</div>
+</main>
 </body>
 </html>

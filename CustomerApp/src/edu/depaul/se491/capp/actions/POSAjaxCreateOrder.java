@@ -23,8 +23,8 @@ import edu.depaul.se491.ws.clients.OrderServiceClient;
  * @author Malik
  *
  */
-@WebServlet("/ajax/create")
-public class CreateOrderAjax extends BaseAction {
+@WebServlet("/pos/ajax/order")
+public class POSAjaxCreateOrder extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	
 	@Override

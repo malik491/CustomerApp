@@ -1,15 +1,18 @@
+/* Component styles */
 .component {
-	line-height: 1.5em;
 	margin: 0 auto;
 	padding: 2em 0 3em;
-	width: 90%;
-	max-width: 1000px;
+	width: 85%;
 	overflow: hidden;
 }
-.component .filler {
-	font-family: "Blokk", Arial, sans-serif;
-	color: #d3d3d3;
+
+body {
+	margin: 3%;
+	font-family: Arial, sans-serif;
+	color: #6f6f6f;
+	background: #efefef;
 }
+
 table {
     border-collapse: collapse;
     margin-bottom: 3em;
@@ -40,20 +43,12 @@ tbody tr:nth-child(2n-1) {
     background-color: #f5f5f5;
     transition: all .125s ease-in-out;
 }
+table td:first-child {
+	width:30%;
+}
+
 tbody tr:hover {
     background-color: rgba(129,208,177,.3);
-}
-
-*, *:after, *:before { 
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box; 
-}
-
-body {
-	font-family: 'Lato', Arial, sans-serif;
-	color: #7c8d87;
-	background: #f8f8f8;
 }
 
 a {
@@ -61,6 +56,153 @@ a {
 	text-decoration: none;
 }
 
-a:hover, a:focus {
-	color: #7c8d87;
+.btn {
+    padding: 5px 10px;
+    border: 1px;
+    border-style: solid;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display:inline-block;
+    margin-right:5px;
+}
+ 
+.btn:hover {
+    background: #0099cc;
+    color: #ffffff;
+}
+
+.nav-container {
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 8%;
+	top: 0;
+	left: 0;
+	background-color: #00759c;
+	color: #ffffff;
+	text-align: left;
+	text-transform: capitalize;
+}
+
+.nav-content {
+	position: relative;
+	width: 95%;
+	height: 86%;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding-top: .5%;
+	background: #00759c;
+}
+
+#appname {
+	position: relative;
+	float: left;
+	display: inline-block;
+	padding-top: 1%;
+}
+
+#home {
+	position: relative;
+	display: inline-block;
+	margin-left: 3%;
+}
+
+.nav-dropdown {
+	position: relative;
+	float: right;
+	
+	margin-right: 13%;
+	
+	display: inline-block;
+}
+
+.nav-dropdown-content {
+	display: none;
+	position: fixed;
+	
+	background-color: #fff;
+	min-width: 12%;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 12px 16px;
+}
+
+.nav-dropdown:hover .nav-dropdown-content {
+    display: block;
+}
+
+.icon {
+	display:inline-block;
+	margin-right: 3px;
+}
+
+
+.main {
+	padding-top:1%;
+}
+
+.message {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border-style: solid;
+	padding-left: 1%;
+	width: 50%;
+	background-color: antiquewhite;
+}
+
+.work-station {
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+#orderItemsMessage {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border-style: solid;
+	padding-left: 1%;
+	width: 50%;
+	background-color: antiquewhite;
+	color:red;
+	font-weight:bold;
+}
+
+#accordion-outer-div {
+	padding-top: 1%;
+}
+.form {
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+       url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+       url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }

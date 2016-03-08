@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="edu.depaul.se491.utils.ParamLabels,edu.depaul.se491.utils.ParamLengths" %>
 <%@ page import="edu.depaul.se491.beans.OrderBean,edu.depaul.se491.beans.OrderItemBean" %>
 <%@ page import="edu.depaul.se491.enums.OrderItemStatus,edu.depaul.se491.enums.OrderStatus" %>
@@ -6,23 +6,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Track Order</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/component.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
-	<div class="component">
+<jsp:include page="/nav.jsp"></jsp:include>
+
+<main class="main">
 <%
 	String jspMsg = (String) request.getAttribute(ParamLabels.JspMsg.MSG);
 	OrderBean order = (OrderBean) request.getAttribute(ParamLabels.Order.ORDER_BEAN);
 %>
 	<h3> Track Order </h3>
-	<a href="${pageContext.request.contextPath}/home.jsp"> Home Page </a>
-	<br><br>
-	
 	<div>
-		<form action="${pageContext.request.contextPath}/track">
+		<form action="<%= response.encodeURL(getServletContext().getContextPath() + "/track") %>">
 			<label> Order Confirmation: </label>
 			<input type="text" name="<%=ParamLabels.Order.CONFIRMATION%>" 
 				maxLength="<%=ParamLengths.Order.MAX_CONFIRMATION%>" 
@@ -32,12 +31,12 @@
 	</div>
 
 <%	if (jspMsg != null) {
-%>		<h3> <%=jspMsg%></h3>		
+%>		<div class="message"> <%=jspMsg%></div>		
 <%	}
 %>	
 	
 <%	if (order != null) {
-		String ajaxURL = String.format("%s%s", request.getContextPath(), "/ajax/track");
+		String ajaxURL = response.encodeURL(getServletContext().getContextPath() + "/ajax/track");
 		String orderInJson = new Gson().toJson(order);
 %>
 		<br> <br>
@@ -63,6 +62,6 @@
 <%
 	}
 %>
-</div>
+</main>
 </body>
 </html>
