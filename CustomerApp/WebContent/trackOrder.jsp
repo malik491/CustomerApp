@@ -38,16 +38,31 @@
 <%	if (order != null) {
 		String ajaxURL = response.encodeURL(getServletContext().getContextPath() + "/ajax/track");
 		String orderInJson = new Gson().toJson(order);
+		String readyIconURL = response.encodeURL(getServletContext().getContextPath() + "/icons/ready-24.png");
+		String notReadyIconURL = response.encodeURL(getServletContext().getContextPath() + "/icons/not-ready-24.png");
+		String removedIconURL = response.encodeURL(getServletContext().getContextPath() + "/icons/removed-24.png");
+
 %>
 		<br> <br>
 		<h4> Current Order Status </h4>
 		<div>
 			<table>
-				<thead> <tr> <th> Item </th> <th> Status </th> </tr></thead>
+				<thead> <tr> <th> Item </th>  <th> Quantity </th> <th> Status </th> </tr></thead>
 				<tbody>
 <%				for (OrderItemBean item: order.getOrderItems()) {
-					String status = (item.getStatus() == OrderItemStatus.NOT_READY)? "Not Ready" : "Ready";
-%>					<tr> <td> <%=item.getMenuItem().getName()%></td> <td id="<%=item.getMenuItem().getId()%>"> <%=status%> </td> </tr>
+					long id = item.getMenuItem().getId();
+%>					
+					<tr> 
+						<td> <%=item.getMenuItem().getName()%></td> 
+						<td> <%=item.getQuantity() %></td>
+						<td id="<%=id%>"> 
+<%						if (item.getStatus() == OrderItemStatus.READY) {
+%>							<img id="img-<%=id%>" alt="ready icon" src="<%=readyIconURL%>">
+<%						} else {
+%>							<img id="img-<%=id%>" alt="not ready icon" src="<%=notReadyIconURL%>">	
+<%						}
+%> 						</td> 
+					</tr>
 <%				}
 %>				</tbody>
 			</table>
@@ -57,6 +72,9 @@
 			var confirmation = "<%=order.getConfirmation()%>";
 			var ajaxURL = "<%=ajaxURL%>";
 			var order = <%=orderInJson%>;
+			var readyIconURL = "<%=readyIconURL%>";
+			var notReadyIconURL = "<%=notReadyIconURL %>";
+			var removedIconURL = "<%=removedIconURL%>";
 		</script>
 		<script src="${pageContext.request.contextPath}/js/trackOrder.js"></script>
 <%

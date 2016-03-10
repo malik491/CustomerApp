@@ -12,15 +12,11 @@
 
 <main class="main">
 	
-	<div class="action"> 
-		<img alt="restaurant icon" src="${pageContext.request.contextPath}/icons/ic_restaurant_black_48px.svg">
-		<a class="btn" href="<%=response.encodeURL(getServletContext().getContextPath() + "/pos")%>"> Place Online Order </a>
-	</div>
+	<img class="home-action" id="place-action" alt="restaurant icon" src="${pageContext.request.contextPath}/icons/food-red-100.png"
+		onClick="location.href = '<%=response.encodeURL(getServletContext().getContextPath() + "/pos") %>'">
 	
-	<div class="action"> 
-		<img alt="track icon" src="${pageContext.request.contextPath}/icons/ic_track_black_48px.svg">
-		<a class="btn" href="<%=response.encodeURL(getServletContext().getContextPath() + "/track")%>"> Track Order </a>
-	</div>
+	<img class="home-action" alt="restaurant icon" src="${pageContext.request.contextPath}/icons/track-100.png"
+		onClick="location.href = '<%=response.encodeURL(getServletContext().getContextPath() + "/track") %>'">
 </main>
 </body>
 </html>

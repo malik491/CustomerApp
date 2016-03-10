@@ -44,20 +44,28 @@ function fetchAgain(fetchedOrder) {
 	for (var i=0; i < oldItems.length; i++) {
 		var oldItem = oldItems[i];
 		var found = false;
+		$('#img-' + oldItem.menuItem.id).remove();
 		for (var j=0; j < fetchedItems.length; j++) {
 			var fetchedItem = fetchedItems[j];
 			if (oldItem.menuItem.id === fetchedItem.menuItem.id) {
 				var isReady = (fetchedItem.status === 'READY');
 				isAllDone = isAllDone && isReady;
 				
-				$('#' + oldItem.menuItem.id).text(isReady? 'Ready' : 'Not Ready');
+				var img = null;
+				if (isReady) {
+					img = $("<img />", {id: 'img-' + oldItem.menuItem.id, alt: 'ready icon', src : readyIconURL});
+				} else {
+					img = $("<img />", {id: 'img-' + oldItem.menuItem.id, alt: 'not ready icon', src : notReadyIconURL});
+				}
+				img.appendTo($('#' + oldItem.menuItem.id));
 				found = true;
 				break;
 			}
 		}
 		
 		if (found === false) {
-			$('#' + oldItem.menuItem.id).text('Removed');
+			var img = $("<img />", {id: 'img-' + oldItem.menuItem.id, alt: 'removed icon', src : removedIconURL});
+			img.appendTo($('#' + oldItem.menuItem.id));
 		}
 	}
 	

@@ -107,34 +107,20 @@ a {
 	margin-left: 3%;
 }
 
-.nav-dropdown {
-	position: relative;
-	float: right;
-	
-	margin-right: 13%;
-	
+.home-action {
 	display: inline-block;
+	margin-top: 15%;
 }
 
-.nav-dropdown-content {
-	display: none;
-	position: fixed;
-	
-	background-color: #fff;
-	min-width: 12%;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	padding: 12px 16px;
-}
-
-.nav-dropdown:hover .nav-dropdown-content {
-    display: block;
+#place-action {
+	margin-left: 35%;
+	margin-right: 7%;	
 }
 
 .icon {
 	display:inline-block;
 	margin-right: 3px;
 }
-
 
 .main {
 	padding-top:1%;
@@ -149,60 +135,7 @@ a {
 	background-color: antiquewhite;
 }
 
-.work-station {
-	padding-top: 1%;
-	padding-bottom: 1%;
-}
-
-#orderItemsMessage {
-	padding-top: 1%;
-	padding-bottom: 1%;
-	border-style: solid;
-	padding-left: 1%;
-	width: 50%;
-	background-color: antiquewhite;
-	color:red;
-	font-weight:bold;
-}
-
-#accordion-outer-div {
-	padding-top: 1%;
-}
 .form {
 	padding-top: 2%;
 	padding-bottom: 2%;
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-       url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-       url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
