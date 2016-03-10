@@ -4,25 +4,24 @@
   <welcome-file-list>
     <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
-  
   <context-param>
-  	<param-name>web-service-hostname</param-name>
-  	<param-value>localhost</param-value>
+    <param-name>web-service-hostname</param-name>
+    <param-value>localhost</param-value>
   </context-param>
   <context-param>
-  	<param-name>web-service-port</param-name>
-  	<param-value>80</param-value>
+    <param-name>web-service-port</param-name>
+    <param-value>80</param-value>
   </context-param>
   <context-param>
-  	<param-name>web-service-appname</param-name>
-  	<param-value>CoreApp</param-value>
+    <param-name>web-service-appname</param-name>
+    <param-value>coreapp</param-value>
   </context-param>
   <context-param>
-	<param-name>customerapp-username</param-name>
-  	<param-value>customerapp</param-value>
+    <param-name>customerapp-username</param-name>
+    <param-value>customerapp</param-value>
   </context-param>
   <context-param>
-  	<param-name>customerapp-password</param-name>
-  	<param-value>password</param-value>
+    <param-name>customerapp-password</param-name>
+    <param-value>password</param-value>
   </context-param>
 </web-app>
