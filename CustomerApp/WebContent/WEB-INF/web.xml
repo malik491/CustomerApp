@@ -10,7 +10,7 @@
   </context-param>
   <context-param>
     <param-name>web-service-port</param-name>
-    <param-value>80</param-value>
+    <param-value>8080</param-value>
   </context-param>
   <context-param>
     <param-name>web-service-appname</param-name>
