@@ -214,14 +214,15 @@ function isValidAddress(address) {
 		 return false;
 	if (isNaN(ccPayment.expMonth) || ccPayment.expMonth < 1 || ccPayment.expMonth > 12)
 		 return false;
-	if (isNaN(ccPayment.expYear) || ccPayment.expYear < 1996 || ccPayment.expYear > 2036)
-		 return false;
+	
 	var currentYear = new Date().getFullYear();
-	if (currentYear === ccPayment.expYear) {
-		var currentMonth = new Date().getMonth();
-		if (ccPayment.expMonth < currentMonth)
-			return false;
-	}
+	if (isNaN(ccPayment.expYear) || ccPayment.expYear < currentYear || ccPayment.expYear > currentYear + 20)
+		 return false;
+
+	var currentMonth = new Date().getMonth();
+	if (ccPayment.expYear === currentYear && ccPayment.expMonth < currentMonth)
+		return false;
+
 	
 	return true;
  }
