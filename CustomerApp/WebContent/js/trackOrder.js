@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function() {
-	setTimeout(fetchOrderStatus, 5000);
+	setTimeout(fetchOrderStatus, 10000);
 });
 
 
@@ -15,20 +15,26 @@ function fetchOrderStatus() {
 			   data: { orderConf: confirmation},
 			   success: 
 				   	function(data, textStatus, jqXHR) {
-			   			if (data.valid === true) {
-			   				if (fetchAgain(data.order)) {
-				   				setTimeout(fetchOrderStatus, 5000);			   					
-			   				}
-				   		} else if (data.valid === false){
-		   					alert('failed to fetch order: ' + data.message);
+				   		if (data) {
+				   			if (data.valid === true) {
+				   				if (fetchAgain(data.order)) {
+					   				setTimeout(fetchOrderStatus, 10000);			   					
+				   				}
+					   		} else {
+			   					alert('Failed To Fetch Order Data: ' + data.message);
+					   		}
 				   		} else {
-				   			alert('malformed server ajax response');
+				   			alert('Malformed Server Response');
 				   		}
 			    	},
 			    error: 
-			    	function(data) {
-			        	alert('Error: AJAX request. Check if the server is running');
-			    	}
+					function(xhr, status, error) {
+						var msg = xhr.responseText;
+						if (msg.length === 0) {
+							msg = "Cannot Connect To The Server"
+						}
+				       	alert('Error: ' + msg);
+					}
 		});
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ * Malik 
  */
  var currentOrder = null;
  var isMenuLocked = false;
@@ -157,7 +157,7 @@ function getOrderItem(order, menuItemId) {
 	 if (isMenuLocked === false) {
 		 var oldItem = getOrderItem(currentOrder, id);
 		 var newQty = getIntValue($($(getOrderItemDiv(id)).children('input')[0]).val());
-		 if (newQty !== NaN) {
+		 if (isNaN(newQty) === false && newQty > 0) {
 			 oldItem.quantity = newQty;
 		 }
 		 updateOrderSummary(currentOrder);		 
@@ -212,10 +212,17 @@ function isValidAddress(address) {
 		return false;
 	if (ccPayment.ccHolderName === null || ccPayment.ccHolderName.length < 3 || ccPayment.ccHolderName.length > 100)
 		 return false;
-	if (ccPayment.expMonth < 1 || ccPayment.expMonth > 12)
+	if (isNaN(ccPayment.expMonth) || ccPayment.expMonth < 1 || ccPayment.expMonth > 12)
 		 return false;
-	if (ccPayment.expYear < 1996 || ccPayment.expYear > 2036)
+	if (isNaN(ccPayment.expYear) || ccPayment.expYear < 1996 || ccPayment.expYear > 2036)
 		 return false;
+	var currentYear = new Date().getFullYear();
+	if (currentYear === ccPayment.expYear) {
+		var currentMonth = new Date().getMonth();
+		if (ccPayment.expMonth < currentMonth)
+			return false;
+	}
+	
 	return true;
  }
  
@@ -308,18 +315,22 @@ function isValidAddress(address) {
 	   success: 
 		   	function(data, textStatus, jqXHR) {
 	   			if (data.valid === undefined) {
-	   				alert('Malformed server response (ajax)');
+	   				alert('Malformed Server Response');
 	   			} else if (data.valid === false) {
-		   			alert('failed to fetch menu: ' + data.message);
+		   			alert('Failed To Fetch Menu Data: ' + data.message);
 		   		} else if (data.valid === true) {
 		   			updateMenu(data.itemsList);
 		   			setTimeout(ajaxFetchMenu, 15000);
 		   		}
 	    	},
 			error: 
-			  	function(data) {
-			       	alert('Error: AJAX in ajaxfetchMenu(). Check if the server is running');
-			}
+				function(xhr, status, error) {
+					var msg = xhr.responseText;
+					if (msg.length === 0) {
+						msg = "Cannot Connect To The Server"
+					}
+			       	alert('Error: ' + msg);
+				}
 		});
 	}
  
@@ -447,10 +458,10 @@ function isValidAddress(address) {
 				ccPayment.ccHolderName  = $("input[name='creditcard_holder_name']").val().trim();
 				
 				var month = getIntValue($("input[name='creditcard_month']").val().trim());
-				ccPayment.expMonth = month !== NaN? month : 0;
+				ccPayment.expMonth = month;
 				
 				var year  = getIntValue($("input[name='creditcard_year']").val().trim());
-				ccPayment.expYear = year !== NaN? year : 0;
+				ccPayment.expYear = year;
 				
 				isValid = isValidCCPayment(ccPayment);
 			}
@@ -466,35 +477,43 @@ function isValidAddress(address) {
 					   data: { order: JSON.stringify(copiedCurrentOrder)},
 					   success: 
 						   	function(data, textStatus, jqXHR) {
-						   	if (data.added === true) {
-					   				$("#confirmation").text(data.confirmation);
-					   				$("input[name='orderConf'").val(data.confirmation);
-					   				$('#pos_confirmation').show(700);
-						   		} else if (data.added === false){
-						   			$('#pos_ordertype').hide(700);
-						   			alert('failed to added order: ' + data.message);
-						   		} else {
-						   			$('#pos_ordertype').hide(700);
-						   			alert('malformed server ajax response');
-						   		}
-					   			isMenuLocked = false;
+						   		$('#pos_paymenttype').hide(700);
+							   	if (data) {
+								   	if (data.added === true) {
+						   				$("#confirmation").text(data.confirmation);
+						   				$("input[name='orderConf'").val(data.confirmation);
+						   				$('#pos_confirmation').show(700);
+							   		} else {
+							   			$('#pos_overlay').hide(700);
+							   			alert('Failed To Add New Order: ' + data.message);
+							   		}						   		
+							   	} else {
+						   			$('#pos_overlay').hide(700);
+							   		alert('Malformed Server Response');
+							   	}
 					    	},
 					    error: 
-					    	function(data) {	
-					    		$('#pos_ordertype').hide(700);
-					    		alert('Error: AJAX request. Check if the server is running');
-					    	}
+					    	function(xhr, status, error) {
+								$('#pos_paymenttype').hide(700);
+					    		$('#pos_overlay').hide(700);
+					    
+								var msg = xhr.responseText;
+								if (msg.length === 0) {
+									msg = "Cannot Connect To The Server"
+								}
+						       	alert('Error: ' + msg);
+							}
 				});
+				
+				isMenuLocked = false;
 				$('#clear-btn').trigger('click');
-				$('#pos_paymenttype').hide(700);
-				isMenuLocked = false;	
 			} else {
 				alert('Invalid Credit Card Data');
 			}
 		} else {
+			isMenuLocked = false;
 			$('#clear_btn').trigger('click');
 			$('#pos_paymenttype').hide(700);
-			isMenuLocked = false;
 		}
 	});
 	
